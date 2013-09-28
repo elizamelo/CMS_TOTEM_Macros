@@ -74,7 +74,7 @@ double etaBinsHCALBoundaries[] = {-5.205, -4.903, -4.730,
 
 /*
  */
-void CMS_MC_POMPYT_JPSI_plus_v4(vector<string> const& fileNames, string const& outputFileName = "output.root", const Double_t t_proton_down_=0.0, const Double_t t_proton_up_=1.0, const Double_t xi_proton_down_=0.0,const Double_t xi_proton_up_=0.2,const Int_t Bin_mass=100 ,const Int_t nevt_max = -1){
+void CMS_MC_POMPYT_JPSI_plus_v5(vector<string> const& fileNames, string const& outputFileName = "output.root", const Double_t t_proton_down_=0.0, const Double_t t_proton_up_=1.0, const Double_t xi_proton_down_=0.0,const Double_t xi_proton_up_=0.2,const Int_t Bin_mass=100 ,const Int_t nevt_max = -1){
 
 
 	//bool isMC  = false;
