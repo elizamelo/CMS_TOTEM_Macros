@@ -288,7 +288,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 	histosTH1F["dimuon_eta_t_cut_proton_right"] = new TH1F("dimuon_eta_t_cut_proton_right", "#eta(mu1,mu2)" , 100 , -5.2 , 5.2);
 	histosTH1F["dimuon_rapidity_t_cut_proton_right"] = new TH1F("dimuon_rapidity_t_cut_proton_right", "y(mu1,mu2)" , 100 , -15. , 15.);
 	histosTH1F["dimuon_multiplicity_t_cut_proton_right"] = new TH1F("dimuon_multiplicity_t_cut_proton_right", "n dimuons" , 100 , 0 , 100);
-        histosTH1F["proton_right_xi_t_cut"] = new TH1F("proton_right_xi_t_selected", "#xi" , 100 ,5.0);
+        histosTH1F["proton_right_xi_t_cut"] = new TH1F("proton_right_xi_t_selected", "#xi" , 100, 0. ,5.0);
         histosTH1F["proton_right_t_t_cut"] = new TH1F("proton_right_t_t_selected", "-t" , 100, 0., 5.0);
         //Deltas info
         histosTH1F["muonDeltaPt_t_cut_proton_right"] = new TH1F("muonDeltaPt_t_cut_proton_right", "#Deltap_{T}(mu1,mu2)" , 100 , 0. , 100.);
@@ -916,7 +916,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
                                         if( !os_muons ) continue;
                                         ++n_dimuons_selected;
                                         mu2_selected = true;
-                                        cout<<"mu2_selected :"<<mu2_selected<<endl;
+                                        //cout<<"mu2_selected :"<<mu2_selected<<endl;
                                         histosTH1F["muon2_pt"]->Fill( it_mu2->Pt(), event_weight );
 					histosTH1F["muon2_eta"]->Fill( it_mu2->Eta(), event_weight );
 					histosTH1F["muon2_rapidity"]->Fill( it_mu2->Rapidity(), event_weight );
@@ -984,7 +984,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
                                           //cout<<"final do loop mass range"<<endl;
                         }
                     }
-                        mu2_selected
+                        if(!mu2_selected)continue;
 //-----------------------------------------------------------------------------------------
 			// Particle-flow
 			vector<MyPFCand> particles_sorted;
