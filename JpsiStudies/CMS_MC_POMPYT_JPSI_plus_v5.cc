@@ -471,7 +471,6 @@ int n_muon_selected = 0;
 int n_dimuons_selected = 0;
 int n_dimuons_rp_selected_plus_side = 0;
 int n_dimuons_rp_selected_tsel_plus_side =0;
-//int n_dimuons_rp_accept_plus_side = 0;
 int n_jpsi_selected = 0;
 int n_jpsi_selected_rp_accept_plus_side = 0;
 int n_jpsi_selected_rp_accept_tsel_plus_side = 0;
