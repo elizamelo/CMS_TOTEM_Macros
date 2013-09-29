@@ -238,7 +238,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 	histosTH1F["muon_multiplicity"] = new TH1F("muon_multiplicity", "n muons" , 100 , 0 , 100);
 
         //Muon1 info
-        
+      
 	histosTH1F["muon1_pt"] = new TH1F("muon1_pt", "p_{T}(mu1)" , 100 , 0. , 100.);
 	histosTH1F["muon1_eta"] = new TH1F("muon1_eta", "#eta(mu1)" , 100 , -5.2 , 5.2);
 	histosTH1F["muon1_phi"] = new TH1F("muon1_phi", "#phi(muon1)" , 100 , -1.2*M_PI ,1.2*M_PI);
@@ -262,7 +262,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 	histosTH1F["dimuon_eta"] = new TH1F("dimuon_eta", "#eta(mu1,mu2)" , 100 , -5.2 , 5.2);
 	histosTH1F["dimuon_rapidity"] = new TH1F("dimuon_rapidity", "y(mu1,mu2)" , 100 , -15. , 15.);
 	histosTH1F["dimuon_multiplicity"] = new TH1F("dimuon_multiplicity", "n dimuons" , 100 , 0 , 100); 
-        /*	histosTH1F["proton_right_xi_t_cut"] = new TH1F("proton_right_xi_t_selected", "#xi" , 29 , xi_bins);
+        /*histosTH1F["proton_right_xi_t_cut"] = new TH1F("proton_right_xi_t_selected", "#xi" , 29 , xi_bins);
 	histosTH1F["proton_right_t_t_cut"] = new TH1F("proton_right_t_t_selected", "|t|" , 11 , tbins);*/
 	//dimuon_proton_right
         //histosTH1F["dimuon_proton_right_xi"] = new TH1F("dimuon_proton_right_xi", "#xi" , 29 , xi_bins);
@@ -298,7 +298,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 
 
         //t_cut_xi_cut_proton_right
-        histosTH1F["dimuon_mass_t_cut_xi_cut_proton_right"] = new TH1F("dimuon_mass_t_cut_xi_cut_proton_right", "mass(mu1,mu2)" , Bin_mass , 0. , 10.);
+        /*histosTH1F["dimuon_mass_t_cut_xi_cut_proton_right"] = new TH1F("dimuon_mass_t_cut_xi_cut_proton_right", "mass(mu1,mu2)" , Bin_mass , 0. , 10.);
         histosTH1F["dimuon_pt2_t_cut_xi_cut_proton_right"] = new TH1F("dimuon_pt2_t_cut_xi_cut_proton_right", "p_{T}^{2}(mu1,mu2)" , 100 , 0. , 1000.);
         histosTH1F["dimuon_pt_t_cut_xi_cut_proton_right"] = new TH1F("dimuon_pt_t_cut_xi_cut_proton_right", "p_{T}(mu1,mu2)" , 100 , 0. , 100.);
         histosTH1F["dimuon_eta_t_cut_xi_cut_proton_right"] = new TH1F("dimuon_eta_t_cut_xi_cut_proton_right", "#eta(mu1,mu2)" , 100 , -5.2 , 5.2);
@@ -324,7 +324,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
         histosTH1F["muonDeltaPt_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaPt_t_cut_xi_cut_proton_right", "#Deltap_{T}(mu1,mu2)" , 100 , 0. , 100.);
         histosTH1F["muonDeltaEta_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaEta_t_cut_xi_cut_proton_right", "#Delta#eta(mu1,mu2)" , 100 , 0. , 10.);
         histosTH1F["muonDeltaPhi_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaPhi_t_cut_xi_cut_proton_right", "#Delta#phi(mu1,mu2)" , 100 ,- 2.2*M_PI , 2.2*M_PI);
-        histosTH1F["muonDeltaY_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaY_t_cut_xi_cut_proton_right", "#Deltay(mu1,mu2)" , 100 , 0. , 10.);
+        histosTH1F["muonDeltaY_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaY_t_cut_xi_cut_proton_right", "#Deltay(mu1,mu2)" , 100 , 0. , 10.);*/
 
 	//dimuon_proton_left
         histosTH1F["dimuon_proton_left_xi"] = new TH1F("dimuon_proton_left_xi", "#xi" , 100, 0.,1.);
@@ -357,7 +357,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
         histosTH1F["muonDeltaY_t_cut_proton_left"] = new TH1F("muonDeltaY_t_cut_proton_left", "#Deltay(mu1,mu2)" , 100 , 0. , 10.);
 
         //t_cut_xi_cut_proton_left
-        histosTH1F["dimuon_mass_t_cut_xi_cut_proton_left"] = new TH1F("dimuon_mass_t_cut_xi_cut_proton_left", "mass(mu1,mu2)" , Bin_mass , 0. , 10.);
+       /* histosTH1F["dimuon_mass_t_cut_xi_cut_proton_left"] = new TH1F("dimuon_mass_t_cut_xi_cut_proton_left", "mass(mu1,mu2)" , Bin_mass , 0. , 10.);
         histosTH1F["dimuon_pt_t_cut_xi_cut_proton_left"] = new TH1F("dimuon_pt_t_cut_xi_cut_proton_left", "p_{T}(mu1,mu2)" , 100 , 0. , 100.);
         histosTH1F["dimuon_pt2_t_cut_xi_cut_proton_left"] = new TH1F("dimuon_pt2_t_cut_xi_cut_proton_left", "p_{T}(mu1,mu2)" , 100 , 0. , 1000.);
 
@@ -384,7 +384,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
         histosTH1F["muonDeltaEta_t_cut_xi_cut_proton_left"] = new TH1F("muonDeltaEta_t_cut_xi_cut_proton_left", "#Delta#eta(mu1,mu2)" , 100 , 0. , 10.);
         histosTH1F["muonDeltaPhi_t_cut_xi_cut_proton_left"] = new TH1F("muonDeltaPhi_t_cut_xi_cut_proton_left", "#Delta#phi(mu1,mu2)" , 100 , -2.2*M_PI , 2.2*M_PI);
         histosTH1F["muonDeltaY_t_cut_xi_cut_proton_left"] = new TH1F("muonDeltaY_t_cut_xi_cut_proton_left", "#Deltay(mu1,mu2)" , 100 , 0. , 10.);
-
+        */
 
 
 
@@ -450,24 +450,24 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
         histosTH1F["muonDeltaPhi_jpsi_t_cut_proton_right"] = new TH1F("muonDeltaPhi_jpsi_t_cut_proton_right", "#Delta#phi(mu1,mu2)" , 100 , -2.2*M_PI , 2.2*M_PI);
         histosTH1F["muonDeltaY_jpsi_t_cut_proton_right"] = new TH1F("muonDeltaY_jpsi_t_cut_proton_right", "#Deltay(mu1,mu2)" , 100 , 0. , 10.);
 	
-        histosTH1F["jpsi_proton_right_xi_t_cut"] = new TH1F("jpsi_proton_right_xi_t_selected", "#xi" , 30, 0.,1.);
-        histosTH1F["jpsi_proton_right_t_t_cut"] = new TH1F("jpsi_proton_right_t_t_selected", "-t" , 30, 0.,5.);
+        histosTH1F["jpsi_proton_right_xi_t_cut"] = new TH1F("jpsi_proton_right_xi_t_selected", "#xi" , 100, 0.,1.);
+        histosTH1F["jpsi_proton_right_t_t_cut"] = new TH1F("jpsi_proton_right_t_t_selected", "-t" , 100, 0.,5.);
 
        //t_cut_xi_cut_proton_right
-        histosTH1F["jpsi_dimuon_mass_t_cut_xi_cut_proton_right"] = new TH1F("jpsi_dimuon_mass_t_cut_xi_cut_proton_right", "jpsi_mass(mu1,mu2)" , Bin_mass , 0. , 10.);
+       /* histosTH1F["jpsi_dimuon_mass_t_cut_xi_cut_proton_right"] = new TH1F("jpsi_dimuon_mass_t_cut_xi_cut_proton_right", "jpsi_mass(mu1,mu2)" , Bin_mass , 0. , 10.);
         histosTH1F["jpsi_dimuon_pt2_t_cut_xi_cut_proton_right"] = new TH1F("jpsi_dimuon_pt2_t_cut_xi_cut_proton_right", "p_{T}^{2}(mu1,mu2)" , 100 , 0. , 2000.);
         histosTH1F["jpsi_dimuon_pt_t_cut_xi_cut_proton_right"] = new TH1F("jpsi_dimuon_pt_t_cut_xi_cut_proton_right", "p_{T}(mu1,mu2)" , 100 , 0. , 20.);
         histosTH1F["jpsi_dimuon_eta_t_cut_xi_cut_proton_right"] = new TH1F("jpsi_dimuon_eta_t_cut_xi_cut_proton_right", "#eta(mu1,mu2)" , 100 , -5.2 , 5.2);
         histosTH1F["jpsi_dimuon_rapidity_t_cut_xi_cut_proton_right"] = new TH1F("jpsi_dimuon_rapidity_t_cut_xi_cut_proton_right", "y(mu1,mu2)" , 100 , -15. , 15.);
         histosTH1F["jpsi_dimuon_multiplicity_t_cut_xi_cut_proton_right"] = new TH1F("jpsi_dimuon_multiplicity_t_cut_xi_cut_proton_right", "n jpsi_dimuons" , 100 , 0 , 20);
-        histosTH1F["jpsi_proton_right_xi_t_cut_xi_cut"] = new TH1F("jpsi_proton_right_xi_selected_t_and_xi", "#xi" ,30, 0.,1. );
-        histosTH1F["jpsi_proton_right_t_t_cut_xi_cut"] = new TH1F("jpsi_proton_right_t_selected_t_and_xi", "-t" , 30, 0.,5.);
+        histosTH1F["jpsi_proton_right_xi_t_cut_xi_cut"] = new TH1F("jpsi_proton_right_xi_selected_t_and_xi", "#xi" ,100, 0.,1. );
+        histosTH1F["jpsi_proton_right_t_t_cut_xi_cut"] = new TH1F("jpsi_proton_right_t_selected_t_and_xi", "-t" , 100, 0.,5.);*/
 
        //Deltas info
-        histosTH1F["muonDeltaPt_jpsi_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaPt_jpsi_t_cut_xi_cut_proton_right", "#Deltap_{T}(mu1,mu2)" , 100 , 0. , 100.);
+       /* histosTH1F["muonDeltaPt_jpsi_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaPt_jpsi_t_cut_xi_cut_proton_right", "#Deltap_{T}(mu1,mu2)" , 100 , 0. , 100.);
         histosTH1F["muonDeltaEta_jpsi_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaEta_jpsi_t_cut_xi_cut_proton_right", "#Delta#eta(mu1,mu2)" , 100 , 0. , 10.);
         histosTH1F["muonDeltaPhi_jpsi_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaPhi_jpsi_t_cut_xi_cut_proton_right", "#Delta#phi(mu1,mu2)" , 100 , -2.2*M_PI , 2.2*M_PI);
-        histosTH1F["muonDeltaY_jpsi_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaY_jpsi_t_cut_xi_cut_proton_right", "#Deltay(mu1,mu2)" , 100 , 0. , 10.);
+        histosTH1F["muonDeltaY_jpsi_t_cut_xi_cut_proton_right"] = new TH1F("muonDeltaY_jpsi_t_cut_xi_cut_proton_right", "#Deltay(mu1,mu2)" , 100 , 0. , 10.);*/
 
 
 

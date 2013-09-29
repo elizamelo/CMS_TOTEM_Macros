@@ -161,8 +161,8 @@ void CMS_MC_POMPYT_JPSI_plus_v5(vector<string> const& fileNames, string const& o
         histosTH1F["muonDeltaPhi_rp_accept"] = new TH1F("muonDeltaPhi_rp_accept", "#Delta#phi(mu1,mu2)" , 100 , -1.2*M_PI , 1.2*M_PI);
         histosTH1F["muonDphi_rp_accept"] = new TH1F("muonDphi_rp_accept", "#Delta#phi(mu1,mu2)" , 100 , -1.2*M_PI , 1.2*M_PI);
         histosTH1F["muonDeltaY_rp_accept"] = new TH1F("muonDeltaY_rp_accept", "#Deltay(mu1,mu2)" , 100 , 0. , 10.);
-        histosTH1F["dimuon_xi_plus_rp_accept"]= new TH1F("dimuon_xi_plus_rp_accept", "#xi^{+}" , 100 , 0.,1.);
-        histosTH1F["dimuon_t_plus_rp_accept"] = new TH1F("dimuon_t_plus_rp_accept", "|t|^{+}" , 100,0.,5.0);
+        //histosTH1F["dimuon_xi_plus_rp_accept"]= new TH1F("dimuon_xi_plus_rp_accept", "#xi^{+}" , 100 , 0.,1.);
+        //histosTH1F["dimuon_t_plus_rp_accept"] = new TH1F("dimuon_t_plus_rp_accept", "|t|^{+}" , 100,0.,5.0);
 
         // Reco Muons rp_accept && _tsel
         histosTH1F["dimuon_mass_rp_accept_tsel"] = new TH1F("dimuon_mass_rp_accept_tsel", "mass(mu1,mu2)" , Bin_mass , 0. , 10.);
@@ -224,8 +224,8 @@ void CMS_MC_POMPYT_JPSI_plus_v5(vector<string> const& fileNames, string const& o
         histosTH1F["jpsi_eta_rp_accept"] = new TH1F("jpsi_eta_rp_accept", "jpsi #eta(mu1,mu2)" , 100 , -5.2 , 5.2);
         histosTH1F["jpsi_rapidity_rp_accept"] = new TH1F("jpsi_rapidity_rp_accept", "jpsi y(mu1,mu2)" , 100 , -15. , 15.);
         histosTH1F["jpsi_multiplicity_rp_accept"] = new TH1F("jpsi_multiplicity_rp_accept", "n jpsi(dimuons)" , 100 , 0 , 100);
-        histosTH1F["jpsi_xi_plus_rp_accept"]= new TH1F("jpsi_xi_plus_rp_accept", "#xi^{+}" , 30 , 0.,1.);
-        histosTH1F["jpsi_t_plus_rp_accept"] = new TH1F("jpsi_t_plus_rp_accept", "|t|^{+}" , 30,0.,5.0);
+        histosTH1F["jpsi_xi_plus_rp_accept"]= new TH1F("jpsi_xi_plus_rp_accept", "#xi^{+}" , 100 , 0.,1.);
+        histosTH1F["jpsi_t_plus_rp_accept"] = new TH1F("jpsi_t_plus_rp_accept", "|t|^{+}" , 100,0.,5.0);
 
         //Deltas info
         histosTH1F["muonDeltaPt_jpsi_rp_accept"] = new TH1F("muonDeltaPt_jpsi_rp_accept", "#Deltap_{T}(mu1,mu2)" , 100 , 0. , 100.);
@@ -242,8 +242,8 @@ void CMS_MC_POMPYT_JPSI_plus_v5(vector<string> const& fileNames, string const& o
         histosTH1F["jpsi_eta_rp_accept_tsel"] = new TH1F("jpsi_eta_rp_accept_tsel", "jpsi #eta(mu1,mu2)" , 100 , -5.2 , 5.2);
         histosTH1F["jpsi_rapidity_rp_accept_tsel"] = new TH1F("jpsi_rapidity_rp_accept_tsel", "jpsi y(mu1,mu2)" , 100 , -15. , 15.);
         histosTH1F["jpsi_multiplicity_rp_accept_tsel"] = new TH1F("jpsi_multiplicity_rp_accept_tsel", "n jpsi(dimuons)" , 100 , 0 , 100);
-        histosTH1F["jpsi_xi_plus_rp_accept_tsel"]= new TH1F("jpsi_xi_plus_rp_accept_tsel", "#xi^{+}" , 30 , 0.,1.);
-        histosTH1F["jpsi_t_plus_rp_accept_tsel"] = new TH1F("jpsi_t_plus_rp_accept_tsel", "|t|^{+}" , 30,0.,5.0);
+        histosTH1F["jpsi_xi_plus_rp_accept_tsel"]= new TH1F("jpsi_xi_plus_rp_accept_tsel", "#xi^{+}" , 100 , 0.,1.);
+        histosTH1F["jpsi_t_plus_rp_accept_tsel"] = new TH1F("jpsi_t_plus_rp_accept_tsel", "|t|^{+}" , 100,0.,5.0);
 
         //Deltas info
         histosTH1F["muonDeltaPt_jpsi_rp_accept_tsel"] = new TH1F("muonDeltaPt_jpsi_rp_accept_tsel", "#Deltap_{T}(mu1,mu2)" , 100 , 0. , 100.);
@@ -281,13 +281,13 @@ void CMS_MC_POMPYT_JPSI_plus_v5(vector<string> const& fileNames, string const& o
        Float_t tbins_matrix[34] = { 0.0144, 0.0256, 0.04, 0.0576, 0.0784, 0.1024, 0.1296, 0.16, 0.1936, 0.2304, 0.2704, 0.3136, 0.36, 0.4096, 0.4624, 0.5184, 0.5778, 0.64, 0.7056, 0.7744, 0.8464, 0.9216, 1., 1.0816, 1.1664, 1.2544, 1.3456, 1.44, 1.5376, 1.6384, 1.7424, 1.8496, 1.96, 2.0736};
        //histosTH1F["xi_proton_minus"] = new TH1F("xi_proton_minus", "xi_proton_minus" ,  30,-1.0,1.0);// 28, xi_bins);
        //histosTH1F["t_proton_minus"] = new TH1F("t_proton_minus", "t_proton_minus" ,   20,-1.0,1.0);//11, tbins);
-        histosTH1F["t_proton_minus_accepted"] = new TH1F("t_proton_minus_accepted", "t_proton_minus",  30,0.,5.0);//, 11, tbins);
+        histosTH1F["t_proton_minus_accepted"] = new TH1F("t_proton_minus_accepted", "t_proton_minus",  100,0.,5.0);//, 11, tbins);
         histosTH1F["thx_proton_minus"] = new TH1F("thx_proton_minus", "thx_proton_minus" , 100, -5e-4, 5e-4);
         histosTH1F["thy_proton_minus"] = new TH1F("thy_proton_minus", "thy_proton_minus" , 100, -5e-4, 5e-4);
         //histosTH1F["xi_proton_plus"] = new TH1F("xi_proton_plus", "xi_proton_plus" ,   30,-1.0,1.0);//28, xi_bins);
         //histosTH1F["t_proton_plus"] = new TH1F("t_proton_plus", "t_proton_plus" ,   11,-1.0,1.0);//11, tbins);
         histosTH1F["t_proton_plus_newbinning"] = new TH1F("t_proton_plus_newbinning", "t_proton_plus" , 33, tbins_matrix);
-        histosTH1F["t_proton_plus_accepted"] = new TH1F("t_proton_plus_accepted", "t_proton_plus" , 30,0.,1.0);//11, tbins);
+        histosTH1F["t_proton_plus_accepted"] = new TH1F("t_proton_plus_accepted", "t_proton_plus" , 100,0.,1.0);//11, tbins);
         histosTH1F["t_proton_plus_accepted_newbinning"] = new TH1F("t_proton_plus_accepted_newbinning", "t_proton_plus" , 33, tbins_matrix);
         histosTH1F["thx_proton_plus"] = new TH1F("thx_proton_plus", "thx_proton_plus" , 100, -5e-4, 5e-4);
         histosTH1F["thy_proton_plus"] = new TH1F("thy_proton_plus", "thy_proton_plus" , 100, -5e-4, 5e-4);
@@ -296,8 +296,8 @@ void CMS_MC_POMPYT_JPSI_plus_v5(vector<string> const& fileNames, string const& o
 
 
 //FIXME
-histosTH1F["xi_proton_minus_accepted"] = new TH1F("xi_proton_minus_accepted", "xi_proton_minus" ,  30,0.,1.0);// 28, xi_bins);
-histosTH1F["xi_proton_plus_accepted"] = new TH1F("xi_proton_plus_accepted", "xi_proton_plus" ,   30,0.,1.0);//28, xi_bins);
+histosTH1F["xi_proton_minus_accepted"] = new TH1F("xi_proton_minus_accepted", "xi_proton_minus" ,  100,0.,1.0);// 28, xi_bins);
+histosTH1F["xi_proton_plus_accepted"] = new TH1F("xi_proton_plus_accepted", "xi_proton_plus" ,   100,0.,1.0);//28, xi_bins);
 
 /*histosTH1F["xi_proton_plus_accepted_020"] = new TH1F("xi_proton_plus_accepted_020", "xi_proton_plus" , 100, 0., 1.);
 histosTH1F["t_proton_plus_accepted_020"] = new TH1F("t_proton_plus_accepted_020", "t_proton_plus" , 100, 0., 5.);
