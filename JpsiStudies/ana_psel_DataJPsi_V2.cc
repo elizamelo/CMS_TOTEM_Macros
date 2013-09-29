@@ -1002,15 +1002,15 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 				double pz = it_pfcand->Pz();
 
 				// Apply thresholds
-				if( !pflowThreshold(*it_pfcand,thresholdsPFlow) ) continue;
+				//if( !pflowThreshold(*it_pfcand,thresholdsPFlow) ) continue;
 
-				if( eta >= etaEdgeLow && eta <= etaEdgeHigh ) particles_sorted.push_back(*it_pfcand);
-				pfEPlusPz  += energy + pz;
-				pfEMinusPz += energy - pz;
+				//if( eta >= etaEdgeLow && eta <= etaEdgeHigh ) particles_sorted.push_back(*it_pfcand);
+				//pfEPlusPz  += energy + pz;
+				//pfEMinusPz += energy - pz;
 			}
 
 			// Find eta_min & eta_max
-			double pfEtaMin = -999.;
+			/*double pfEtaMin = -999.;
 			double pfEtaMax = 999.;
 			if( particles_sorted.size() > 0 ){
 				std::stable_sort(particles_sorted.begin(), particles_sorted.end(), sortByEta);
@@ -1023,10 +1023,10 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 			//if( selectEtaMax && (pfEtaMax > 3.0) ) continue;
 			if( selectEtaMax && (pfEtaMax > etaMaxThreshold) ) continue;
 			histosTH1F["EventSelection"]->Fill( "EtaMax", event_weight );
-
+                         */
 			//if( selectEtaMin && (pfEtaMin < -3.0) ) continue;
-			if( selectEtaMin && (pfEtaMin < -etaMaxThreshold) ) continue;
-			histosTH1F["EventSelection"]->Fill( "EtaMin", event_weight );
+			//if( selectEtaMin && (pfEtaMin < -etaMaxThreshold) ) continue;
+			//histosTH1F["EventSelection"]->Fill( "EtaMin", event_weight );
 
 			bool proton_right_valid = rec_proton_right->valid;
 			bool proton_left_valid = rec_proton_left->valid;
@@ -1044,7 +1044,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 			if( selectNonElastic && (tag_elastic_top45_bot56 || tag_elastic_bot45_top56) ) continue;
 			histosTH1F["EventSelection"]->Fill( "NonElastic", event_weight );
 
-			double pfDeltaEta = pfEtaMax - pfEtaMin;
+			/*double pfDeltaEta = pfEtaMax - pfEtaMin;
 			histosTH1F["pf_deltaEta"]->Fill( pfDeltaEta, event_weight ); 
                         cout<<"selectSingleArmRecProton: "<<selectSingleArmRecProton<<endl;
 			double pfXiPlusReco = xiCorrFactor*pfEPlusPz/8000.;
@@ -1055,7 +1055,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 			histosTH1F["pf_xiMinus"]->Fill( pfXiMinusReco, event_weight );
 			histosTH1F["pf_logXiPlus"]->Fill( log10(pfXiPlusReco), event_weight );
 			histosTH1F["pf_logXiMinus"]->Fill( log10(pfXiMinusReco), event_weight );
-
+                        */
 			/*for(vector<MyFSCHit>::iterator it_hit = fscHits_coll->begin() ; it_hit != fscHits_coll->end() ; ++it_hit){
 			  histosTH1F["fscHit_energy"]->Fill( it_hit->energy, event_weight );
 			  histosTH1F["fscHit_time"]->Fill( it_hit->time, event_weight );
@@ -1118,10 +1118,10 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 				if(-xi_proton_right > 0.){
 					xi_proton_right = -xi_proton_right;
 					histosTH1F["proton_right_logXi"]->Fill( log10(xi_proton_right), event_weight );
-					histosTH1F["pf_xiMinus_minus_proton_right_xi"]->Fill( (pfXiMinusReco - xi_proton_right), event_weight );
-					histosTH2F["proton_right_logXi_vs_pf_logXiPlus"]->Fill( log10(pfXiPlusReco),log10(xi_proton_right), event_weight );
-					histosTH2F["proton_right_logXi_vs_pf_logXiMinus"]->Fill( log10(pfXiMinusReco),log10(xi_proton_right), event_weight );
-					histosTH2F["proton_right_logXi_vs_t"]->Fill( -t_proton_right, log10(xi_proton_right), event_weight );
+					//histosTH1F["pf_xiMinus_minus_proton_right_xi"]->Fill( (pfXiMinusReco - xi_proton_right), event_weight );
+					//histosTH2F["proton_right_logXi_vs_pf_logXiPlus"]->Fill( log10(pfXiPlusReco),log10(xi_proton_right), event_weight );
+					//histosTH2F["proton_right_logXi_vs_pf_logXiMinus"]->Fill( log10(pfXiMinusReco),log10(xi_proton_right), event_weight );
+					//histosTH2F["proton_right_logXi_vs_t"]->Fill( -t_proton_right, log10(xi_proton_right), event_weight );
 				}
 			}
 
@@ -1141,10 +1141,10 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 				if(-xi_proton_left > 0.){
 					xi_proton_left = -xi_proton_left;
 					histosTH1F["proton_left_logXi"]->Fill( log10(xi_proton_left), event_weight );
-					histosTH1F["pf_xiPlus_minus_proton_left_xi"]->Fill( (pfXiPlusReco - xi_proton_left), event_weight );
-					histosTH2F["proton_left_logXi_vs_pf_logXiPlus"]->Fill( log10(pfXiPlusReco),log10(xi_proton_left), event_weight );
-					histosTH2F["proton_left_logXi_vs_pf_logXiMinus"]->Fill( log10(pfXiMinusReco),log10(xi_proton_left), event_weight );
-					histosTH2F["proton_left_logXi_vs_t"]->Fill( -t_proton_left, log10(xi_proton_left), event_weight );
+					//histosTH1F["pf_xiPlus_minus_proton_left_xi"]->Fill( (pfXiPlusReco - xi_proton_left), event_weight );
+					//histosTH2F["proton_left_logXi_vs_pf_logXiPlus"]->Fill( log10(pfXiPlusReco),log10(xi_proton_left), event_weight );
+					//histosTH2F["proton_left_logXi_vs_pf_logXiMinus"]->Fill( log10(pfXiMinusReco),log10(xi_proton_left), event_weight );
+					//histosTH2F["proton_left_logXi_vs_t"]->Fill( -t_proton_left, log10(xi_proton_left), event_weight );
 				}
 			}
 

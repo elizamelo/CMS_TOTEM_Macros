@@ -287,7 +287,7 @@ void CMS_MC_POMPYT_JPSI_plus_v5(vector<string> const& fileNames, string const& o
         //histosTH1F["xi_proton_plus"] = new TH1F("xi_proton_plus", "xi_proton_plus" ,   30,-1.0,1.0);//28, xi_bins);
         //histosTH1F["t_proton_plus"] = new TH1F("t_proton_plus", "t_proton_plus" ,   11,-1.0,1.0);//11, tbins);
         histosTH1F["t_proton_plus_newbinning"] = new TH1F("t_proton_plus_newbinning", "t_proton_plus" , 33, tbins_matrix);
-        histosTH1F["t_proton_plus_accepted"] = new TH1F("t_proton_plus_accepted", "t_proton_plus" , 100,0.,1.0);//11, tbins);
+        histosTH1F["t_proton_plus_accepted"] = new TH1F("t_proton_plus_accepted", "t_proton_plus" , 100,0.,5.0);//11, tbins);
         histosTH1F["t_proton_plus_accepted_newbinning"] = new TH1F("t_proton_plus_accepted_newbinning", "t_proton_plus" , 33, tbins_matrix);
         histosTH1F["thx_proton_plus"] = new TH1F("thx_proton_plus", "thx_proton_plus" , 100, -5e-4, 5e-4);
         histosTH1F["thy_proton_plus"] = new TH1F("thy_proton_plus", "thy_proton_plus" , 100, -5e-4, 5e-4);
@@ -757,7 +757,7 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
                 if( !chmuons ) continue;
                 cout<<"chmuons after"<<chmuons<<endl;*/
                 if( !mu2_selected ) continue;
-                // cout<<"mu2_selected"<<mu2_selected<<endl;
+                if(verbose) cout<<"mu2_selected"<<mu2_selected<<endl;
                 //===============================================================
 		//GenPart
 		double genEPlusPz = 0.;
@@ -885,16 +885,16 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 
 		histosTH1F["xi_proton_plus_before"]->Fill( xi_proton_plus , event_weight );
 		histosTH1F["t_proton_plus_before"]->Fill( fabs(t_proton_plus) , event_weight );
-                //cout<<"t_proton_plus_before ="<<fabs(t_proton_plus)<<endl;
+                if(verbose)cout<<"t_proton_plus_before ="<<fabs(t_proton_plus)<<endl;
             
-                if(((jpsi_mass > 3.0) && (jpsi_mass < 3.2))){
+                if((jpsi_mass > 3.0) && (jpsi_mass < 3.2)){
                 //cout<<"JPSI MASS 01"<<jpsi_mass<<endl;
-                //cout<<"jpsi_t_plus"<<fabs(t_proton_plus)<<endl;
+                if(verbose)cout<<"jpsi_t_plus"<<fabs(t_proton_plus)<<endl;
                 histosTH1F["jpsi_t_plus"]->Fill( fabs(t_proton_plus), event_weight );
                 histosTH1F["jpsi_xi_plus"]->Fill( xi_proton_plus, event_weight );}
                 
 
-		if(proton_pz_minus < 0.){
+		/*if(proton_pz_minus < 0.){
 			xi_proton_minus = (proton_pz_minus < 0.) ? ( 1 + (proton_pz_minus/proton_pi) ) : -1.;
 
                         TLorentzVector p1(0,0,-4000,4000);
@@ -925,9 +925,9 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 		double soma1 = 0;
 		double soma2 = 0;
 		double eta_max=-999.;
-		double eta_min=999.;
+		double eta_min=999.;*/
 
-		for(vector<MyPFCand>::iterator it_pfcand = pFlow_coll->begin(); it_pfcand != pFlow_coll->end(); ++it_pfcand){
+		/*for(vector<MyPFCand>::iterator it_pfcand = pFlow_coll->begin(); it_pfcand != pFlow_coll->end(); ++it_pfcand){
 			int partType = it_pfcand->particleId;
 			double eta = it_pfcand->Eta();
 			double energy = it_pfcand->Energy();
@@ -965,8 +965,8 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 		}
 
                 //////////////////////////////////////////////////////
-		if(!PF_eta_max) continue;
-		if(!PF_eta_min) continue;
+		//if(!PF_eta_max) continue;
+		//if(!PF_eta_min) continue;
 		weight_total_PF_selected += event_weight;
 
 		++nevents_pf;
@@ -1000,7 +1000,7 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 		histosTH1F["thy_proton_plus"]->Fill( thy_proton_plus , event_weight );
 		histosTH2F["proton_plus_xi_vs_t"]->Fill( fabs(t_proton_plus) , xi_proton_plus , event_weight );	 
 		//histosTH2F["xi+Vseta_max"]->Fill( eta_max, xi1, event_weight ); 
-
+                */
                 if (verbose)cout<< " 020: " << proton_plus_rp_accept_020 <<endl;
                 if (verbose)cout<< " 021: " << proton_plus_rp_accept_021 <<endl;
                 if (verbose)cout<< " 022: " << proton_plus_rp_accept_022 <<endl;
@@ -1008,20 +1008,22 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
                 if (verbose)cout<< " 024: " << proton_plus_rp_accept_024 <<endl;
                 if (verbose)cout<< " 025: " << proton_plus_rp_accept_025 <<endl;
 
-
 		bool proton_plus_rp_accept = (( proton_plus_rp_accept_020 && proton_plus_rp_accept_024 ) || ( proton_plus_rp_accept_021 && proton_plus_rp_accept_025 ) ||( proton_plus_rp_accept_022 && proton_plus_rp_accept_023 ) );
 
-
-		if(!proton_plus_rp_accept) continue; 
+                if(verbose)cout<<"t_proton_plus antes de accept :"<<fabs(t_proton_plus)<<endl;  
+                if(verbose)cout<<"proton_plus_rp_accept ="<<proton_plus_rp_accept<<endl;
+		//if(!proton_plus_rp_accept) continue; 
+                if(proton_plus_rp_accept){
 		// xi rp accepted 
+                if(verbose)cout<<"proton_plus_rp_accept depois ="<<proton_plus_rp_accept<<endl;
 		histosTH1F["xi_proton_plus_accepted"]->Fill( xi_proton_plus , event_weight );
 		histosTH2F["proton_plus_xi_vs_t_accepted"]->Fill( fabs(t_proton_plus) , xi_proton_plus , event_weight );
 		histosTH1F["t_proton_plus_accepted"]->Fill( fabs(t_proton_plus) , event_weight );
-                //cout<<"t_proton_plus_accepted ="<<fabs(t_proton_plus)<<endl;
+                if(verbose)cout<<"t_proton_plus_accepted ="<<fabs(t_proton_plus)<<endl;
 		histosTH1F["t_proton_plus_accepted_newbinning"]->Fill( fabs(t_proton_plus) , event_weight );
 
                 // xi reco  plots
-		histosTH2F["xi_plus_reco_gen"]->Fill( xi_plus_gen, xi_plus_Reco, event_weight );
+		/*histosTH2F["xi_plus_reco_gen"]->Fill( xi_plus_gen, xi_plus_Reco, event_weight );
 	 	histosTH2F["xi_minus_reco_gen"]->Fill( xi_minus_gen, xi_minus_Reco, event_weight );
 		histosTH2F["logxi_plus_reco_gen"]->Fill( log10(xi_plus_gen), log10(xi_plus_Reco), event_weight );
 		histosTH2F["logxi_minus_reco_gen"]->Fill( log10(xi_minus_gen), log10(xi_minus_Reco), event_weight );
@@ -1031,7 +1033,7 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 		histosTH1F["Delta_eta_maxmin"]->Fill( delta_eta_maxmin, event_weight  );
 		histosTH1F["xi_plus_Reco"]->Fill( xi_plus_Reco, event_weight  );
 		histosTH1F["xi_minus_Reco"]->Fill( xi_minus_Reco, event_weight  );
-		histosTH1F["logxi_plus"]->Fill( log10(xi_plus_Reco), event_weight  );
+		histosTH1F["logxi_plus"]->Fill( log10(xi_plus_Reco), event_weight  );*/
 		//----------------------------------------------
                 //dimuons              
 		++n_dimuons_rp_selected_plus_side;	
@@ -1078,7 +1080,7 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 
 		histosTH1F["xi_proton_plus_after"]->Fill( xi_proton_plus , event_weight );
 		histosTH1F["t_proton_plus_after"]->Fill( fabs(t_proton_plus) , event_weight );
-                //cout<<" t_proton_plus_after ="<< fabs(t_proton_plus)<<endl;
+                if(verbose)cout<<" t_proton_plus_after ="<< fabs(t_proton_plus)<<endl;
 		histosTH1F["t_proton_plus_newbinning"]->Fill( fabs(t_proton_plus) , event_weight );
 
 		//----------------------------------------------
@@ -1120,10 +1122,10 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 
                 
                        
-             }
+             }//t
 	
 			
-
+     }//rp
 
 			//------------------
 
