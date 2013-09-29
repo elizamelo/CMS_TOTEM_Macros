@@ -470,9 +470,11 @@ int n_tracks_selected = 0;
 int n_muon_selected = 0;
 int n_dimuons_selected = 0;
 int n_dimuons_rp_selected_plus_side = 0;
+int n_dimuons_rp_selected_tsel_plus_side =0;
 //int n_dimuons_rp_accept_plus_side = 0;
 int n_jpsi_selected = 0;
 int n_jpsi_selected_rp_accept_plus_side = 0;
+int n_jpsi_selected_rp_accept_tsel_plus_side = 0;
 double nevents_pf = 0; 
 double nevents_gen = 0; 
 double nevents_total = 0; 
@@ -1082,7 +1084,7 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 
 		//----------------------------------------------
                 //dimuons              
-		++n_dimuons_rp_selected_tsel__plus_side;	
+		++n_dimuons_rp_selected_tsel_plus_side;	
                 //histosTH1F["dimuon_multiplicity_rp_accept"]->Fill(n_dimuons_rp_selected_plus_side, event_weight );
                 histosTH1F["dimuon_mass_rp_accept_tsel"]->Fill( dimuon_mass, event_weight );
                 histosTH1F["dimuon_pt_rp_accept_tsel"]->Fill( dimuon_pt, event_weight );
@@ -1100,7 +1102,7 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 
                   // cout<<"jpsi_mass = "<< jpsi_mass << endl;
                   //++n_jpsi_rp_accept_selected;
-                  ++n_jpsi_selected_rp_accept__tsel_plus_side;
+                  ++n_jpsi_selected_rp_accept_tsel_plus_side;
                   //histosTH1F["jpsi_multiplicity_rp_accept"]->Fill(n_dimuons_selected, event_weight );
                   histosTH1F["jpsi_mass_rp_accept_tsel"]->Fill(jpsi_mass, event_weight );
                   histosTH1F["jpsi_pt_rp_accept_tsel"]->Fill( jpsi_pt, event_weight );
