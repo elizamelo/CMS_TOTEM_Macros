@@ -1013,6 +1013,7 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 
 
 		if(!proton_plus_rp_accept) continue; 
+	
 		// xi rp accepted 
 		histosTH1F["xi_proton_plus_accepted"]->Fill( xi_proton_plus , event_weight );
 		histosTH2F["proton_plus_xi_vs_t_accepted"]->Fill( fabs(t_proton_plus) , xi_proton_plus , event_weight );
