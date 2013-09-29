@@ -1312,8 +1312,9 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 						}
 					}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                         if(((jpsi_mass > 3.0) && (jpsi_mass < 3.2))){
+                                         
                                           if( good_proton_right ){
+                                            if((jpsi_mass > 3.0) && (jpsi_mass < 3.2)){
                                             
                                             n_jpsi_proton_right++;
 					    double t_proton_right = rec_proton_right->t;
@@ -1371,7 +1372,9 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 					       } // xi, t, right proton */
 					    } // t right proton
                                           } // right proton
+                                        } //jpsi mass
                                           if( good_proton_left ){
+                                            if((jpsi_mass > 3.0) && (jpsi_mass < 3.2)){
                                             n_jpsi_proton_left++;
 					    double t_proton_left = rec_proton_left->t;
 					    
