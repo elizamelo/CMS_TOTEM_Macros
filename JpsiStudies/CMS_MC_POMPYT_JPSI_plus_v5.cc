@@ -133,7 +133,7 @@ void CMS_MC_POMPYT_JPSI_plus_v5(vector<string> const& fileNames, string const& o
 	histosTH1F["track_eta"] = new TH1F("track_eta", "#eta(trk)" , 100 , -5.2 , 5.2);
 	histosTH1F["track_phi"] = new TH1F("track_phi", "#phi(trk)" , 100 , -M_PI , M_PI);
 	histosTH1F["track_multiplicity"] = new TH1F("track_multiplicity", "n tracks" , 100 , 0 , 100);
-
+        histosTH1F["track_rapidity"] = new TH1F("track_rapidity", "rapidity(trk)" , 100 , -5.2 , 5.2);
 	// Reco Muons plots
 	histosTH1F["muon_pt"] = new TH1F("muon_pt", "p_{T}(muon)" , 100 , 0. , 100.);
 	histosTH1F["muon_eta"] = new TH1F("muon_eta", "#eta(muon)" , 100 , -5.2 , 5.2);
@@ -603,12 +603,12 @@ for(vector<TString>::iterator itfiles = vfiles->begin(); itfiles != vfiles->end(
 			histosTH1F["track_pt"]->Fill( it_trk->Pt(), event_weight );
 			histosTH1F["track_eta"]->Fill( it_trk->Eta(), event_weight );
 			histosTH1F["track_phi"]->Fill( it_trk->Phi(), event_weight );
-
+                        histosTH1F["track_rapidity"]->Fill( it_trk->Rapidity(), event_weight );
                                if( it_trk->Pt() < 0.5 ) continue;
                                 if( fabs( it_trk->Eta() ) > 2.5 ) continue;
                                 if( ( it_trk->dz / it_trk->edz ) > 5. ) continue;
                                 if( ( it_trk->d0 / it_trk->ed0 ) > 5. ) continue;
-
+               
                                 /*
                                    outtrack.quality[0] = intrack.quality(TrackBase::qualityByName("loose"));
                                    outtrack.quality[1] = intrack.quality(TrackBase::qualityByName("tight"));

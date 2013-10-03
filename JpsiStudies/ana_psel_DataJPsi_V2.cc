@@ -229,6 +229,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 	//histosTH1F["pt_gen"] = new TH1F("pt_gen" , "pt_gen;pt;nTracks" , 120 , 0 , 6);
 	histosTH1F["track_pt"] = new TH1F("track_pt", "p_{T}(trk)" , 100 , 0. , 15.);
 	histosTH1F["track_eta"] = new TH1F("track_eta", "#eta(trk)" , 100 , -5.2 , 5.2);
+        histosTH1F["track_rapidity"] = new TH1F("track_rapidity", "#rapidity(trk)" , 100 , -5.2 , 5.2);
 	histosTH1F["track_phi"] = new TH1F("track_phi", "#phi(trk)" , 100 , -M_PI , M_PI);
 	histosTH1F["track_multiplicity"] = new TH1F("track_multiplicity", "n tracks" , 100 , 0 , 100);
 
@@ -509,10 +510,10 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 	histosTH1F["pf_deltaEta"] = new TH1F("pf_deltaEta","#Delta#eta",100,0.,10.);
 	histosTH1F["pf_EPlusPz"] = new TH1F("pf_EPlusPz","sum(E + pz)",24,binningEPlusPz);
 	histosTH1F["pf_EMinusPz"] = new TH1F("pf_EMinusPz","sum(E - pz)",24,binningEPlusPz);
-	histosTH1F["pf_xiPlus"] = new TH1F("pf_xiPlus","#xi^{+}",200,-1.,1.);
-	histosTH1F["pf_xiMinus"] = new TH1F("pf_xiMinus","#xi^{-}",200,-1.,1.);
-	histosTH1F["pf_logXiPlus"] = new TH1F("pf_logXiPlus","log(#xi^{+})",200,-5.,0.);
-	histosTH1F["pf_logXiMinus"] = new TH1F("pf_logXiMinus","log(#xi^{-})",200,-5.,0.);
+	histosTH1F["pf_xiPlus"] = new TH1F("pf_xiPlus","#xi^{+}",100,-1.,1.);
+	histosTH1F["pf_xiMinus"] = new TH1F("pf_xiMinus","#xi^{-}",100,-1.,1.);
+	histosTH1F["pf_logXiPlus"] = new TH1F("pf_logXiPlus","log(#xi^{+})",100,-5.,0.);
+	histosTH1F["pf_logXiMinus"] = new TH1F("pf_logXiMinus","log(#xi^{-})",100,-5.,0.);
 
 	/*histosTH1F["fscHit_energy"] = new TH1F("fscHit_energy", "FSC hit energy" , 150 , -100. , 200.);
 	  histosTH1F["fscHit_time"] = new TH1F("fscHit_time", "FSC hit time" , 150 , 0. , 300.);*/
@@ -526,14 +527,34 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 	histosTH1F["t2_track_entryY_zminus"] = new TH1F("t2_track_entryY_zminus", "y_{trk}" , 160 , -160. , 160.);
 	histosTH1F["t2_track_multiplicity_zminus"] = new TH1F("t2_track_multiplicity_zminus", "n tracks" , 100 , 0 , 100);
 
-	histosTH1F["proton_right_xi"] = new TH1F("proton_right_xi", "#xi" , 200 , -1. , 1.);
-	histosTH1F["proton_right_logXi"] = new TH1F("proton_right_logXi","log(#xi)",200,-5.,0.);
+	histosTH1F["proton_right_xi"] = new TH1F("proton_right_xi", "#xi" , 100 , 0. , 1.);
+        histosTH1F["proton_right_xi_total"] = new TH1F("proton_right_xi_all", "#xi" , 100 , -1. , 1.);
+	histosTH1F["proton_right_logXi"] = new TH1F("proton_right_logXi","log(#xi)",100,-5.,0.);
 	histosTH1F["proton_right_t"] = new TH1F("proton_right_t", "-t" , 100 , 0. , 5.);
 	histosTH1F["proton_right_chi2"] = new TH1F("proton_right_chi2", "#chi^{2}" , 100 , 0. , 100.);
 	histosTH1F["proton_left_xi"] = new TH1F("proton_left_xi", "#xi" , 100 , 0. , 1.);
+        histosTH1F["proton_left_xi_total"] = new TH1F("proton_left_xi_all", "#xi" , 100 , -1. , 1.);
 	histosTH1F["proton_left_logXi"] = new TH1F("proton_left_logXi","log(#xi)",200,-5.,0.);
 	histosTH1F["proton_left_t"] = new TH1F("proton_left_t", "-t" , 100 , 0. , 5.);
 	histosTH1F["proton_left_chi2"] = new TH1F("proton_left_chi2", "#chi^{2}" , 100 , 0. , 100.);
+
+        histosTH1F["proton_left_thx"] = new TH1F("thx_proton_left", "thx_proton_left" , 100, -5e-4, 5e-4);
+        histosTH1F["proton_left_thy"] = new TH1F("thx_proton_left", "thx_proton_left" , 100, -5e-4, 5e-4);
+	histosTH1F["tx_proton_left"] = new TH1F("tx_proton_left", "tx_proton_left" , 100, -10., 10.);
+	histosTH1F["ty_proton_left "] = new TH1F("ty_proton_left", "ty_proton_left" , 100, -50., 50.);
+	histosTH1F["x0_proton_left"] = new TH1F("x0_proton_left", "x0_proton_left" , 100, -10., 10.);
+        histosTH1F["y0_proton_left "] = new TH1F("y0_proton_left", "y0_proton_left" , 100, -50., 50.);
+
+        histosTH1F["proton_right_thx"] = new TH1F("thx_proton_right", "thx_proton_right" , 100, -5e-4, 5e-4);
+        histosTH1F["proton_right_thy"] = new TH1F("thx_proton_right", "thx_proton_right" , 100, -5e-4, 5e-4);
+	histosTH1F["tx_proton_right"] = new TH1F("tx_proton_right", "tx_proton_right" , 100, -10., 10.);
+	histosTH1F["ty_proton_right"] = new TH1F("ty_proton_right", "ty_proton_right" , 100, -50., 50.);
+	histosTH1F["x0_proton_right"] = new TH1F("x0_proton_right", "x0_proton_right" , 100, -10., 10.);
+        histosTH1F["y0_proton_right"] = new TH1F("y0_proton_right", "y0_proton_right" , 100, -50., 50.);
+
+        //  histosTH1F["rp_track_posx_020"] = new TH1F("rp_track_posx_020", "x(RP track)" , 200, -10., 10.);
+        //  histosTH1F["rp_track_posy_020"] = new TH1F("rp_track_posy_020", "y(RP track)" , 500, -50., 50.);
+
 
 	histosTH1F["proton_pair_right_xi"] = new TH1F("proton_pair_right_xi", "#xi" , 100 , -1. , 1.);
 	histosTH1F["proton_pair_right_logXi"] = new TH1F("proton_pair_right_logXi","log(#xi)",200,-5.,0.);
@@ -836,6 +857,7 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 			for(vector<MyTracks>::iterator it_trk = track_coll->begin() ; it_trk != track_coll->end() ; ++it_trk){
 				histosTH1F["track_pt"]->Fill( it_trk->Pt(), event_weight );
 				histosTH1F["track_eta"]->Fill( it_trk->Eta(), event_weight );
+				histosTH1F["track_rapidity"]->Fill( it_trk->Rapidity(), event_weight );
 				histosTH1F["track_phi"]->Fill( it_trk->Phi(), event_weight );
 
 				if( it_trk->Pt() < 0.5 ) continue;
@@ -1102,8 +1124,16 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 
 
 			// RP protons 
+                        //double thx, thy, phi, t, tx, ty, xi, x0, y0, chi2, chindf;
 			//bool proton_right_valid = rec_proton_right->valid;
 			double chi2_proton_right = rec_proton_right->chi2;
+                        double thx_proton_right = rec_proton_right->thx;
+                        double thy_proton_right = rec_proton_right->thy;
+                        double tx_proton_right = rec_proton_right->tx;
+                        double ty_proton_right = rec_proton_right->ty;
+                        double x0_proton_right = rec_proton_right->x0;
+                        double y0_proton_right = rec_proton_right->y0;         
+          
 			//double chindf_proton_right = rec_proton_right->chindf;
 			double xi_proton_right = rec_proton_right->xi;
 			//bool good_proton_right = proton_right_valid && (chi2_proton_right/chindf_proton_right > 1);
@@ -1113,9 +1143,16 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 				double t_proton_right = rec_proton_right->t;
 				histosTH1F["proton_right_chi2"]->Fill( chi2_proton_right, event_weight );
 				histosTH1F["proton_right_xi"]->Fill(abs( xi_proton_right), event_weight );
+				histosTH1F["proton_right_xi_total"]->Fill( xi_proton_right, event_weight );
 				histosTH1F["proton_right_t"]->Fill( -t_proton_right, event_weight );
-
-				if(-xi_proton_right > 0.){
+				histosTH1F["proton_right_thx"]->Fill(proton_right_thx, event_weight );
+				histosTH1F["proton_right_thy"]->Fill(proton_right_thy, event_weight );
+				histosTH1F["tx_proton_right"]->Fill(tx_proton_right , event_weight );
+				histosTH1F["ty_proton_right "]->Fill(ty_proton_right , event_weight );
+				histosTH1F["x0_proton_right"]->Fill(x0_proton_right , event_weight );
+				histosTH1F["y0_proton_right "]->Fill(y0_proton_right , event_weight );
+                  
+                 		if(-xi_proton_right > 0.){
 					xi_proton_right = -xi_proton_right;
 					histosTH1F["proton_right_logXi"]->Fill( log10(xi_proton_right), event_weight );
 					//histosTH1F["pf_xiMinus_minus_proton_right_xi"]->Fill( (pfXiMinusReco - xi_proton_right), event_weight );
@@ -1129,6 +1166,12 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 			double chi2_proton_left = rec_proton_left->chi2;
 			//double chindf_proton_left = rec_proton_left->chindf;
 			double xi_proton_left = rec_proton_left->xi;
+                        double thx_proton_left = rec_proton_left->thx;
+                        double thy_proton_left = rec_proton_left->thy;
+                        double tx_proton_left = rec_proton_left->tx;
+                        double ty_proton_left = rec_proton_left->ty;
+                        double x0_proton_left = rec_proton_left->x0;
+                        double y0_proton_left = rec_proton_left->y0;  
 			//bool good_proton_left = proton_left_valid && (chi2_proton_left/chindf_proton_left > 1);
 			bool good_proton_left = proton_left_valid && (xi_proton_left < 0.);
 			if( good_proton_left ){
@@ -1136,7 +1179,14 @@ void ana_psel_DataJPsi_V2(vector<string> const& fileNames, string const& outputF
 				double t_proton_left = rec_proton_left->t;
 				histosTH1F["proton_left_chi2"]->Fill( chi2_proton_left, event_weight );
 				histosTH1F["proton_left_xi"]->Fill( abs(xi_proton_left), event_weight );
+				histosTH1F["proton_left_xi_total"]->Fill( xi_proton_left, event_weight );
 				histosTH1F["proton_left_t"]->Fill( -t_proton_left, event_weight );
+				histosTH1F["proton_left_thx"]->Fill(proton_left_thx, event_weight );
+				histosTH1F["proton_left_thy"]->Fill(proton_left_thy, event_weight );
+				histosTH1F["tx_proton_left"]->Fill(tx_proton_left , event_weight );
+				histosTH1F["ty_proton_left "]->Fill(ty_proton_left , event_weight );
+				histosTH1F["x0_proton_left"]->Fill(x0_proton_left , event_weight );
+				histosTH1F["y0_proton_left "]->Fill(y0_proton_left , event_weight );
 
 				if(-xi_proton_left > 0.){
 					xi_proton_left = -xi_proton_left;
