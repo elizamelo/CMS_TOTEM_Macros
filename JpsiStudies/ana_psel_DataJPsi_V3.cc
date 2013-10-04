@@ -45,13 +45,26 @@
 #include "MyFSCDigi.h"
 
 // TOTEM data formats
-#include "T1Event.h"
+/*#include "T1Event.h"
 #include "T2Event.h"
 #include "RPRootDumpReconstructedProton.h"
 #include "RPRootDumpReconstructedProtonPair.h"
 #include "RPRootDumpTrackInfo.h"
 #include "RPRootDumpDigiInfo.h"
+#include "RPRootDumpPatternInfo.h"*/
+//TOTEM CLASSES
+#include "EventMetaData.h"
+#include "NtupleInfo.h"
+#include "RPEvent.h"
+#include "RPRootDumpDigiInfo.h"
+#include "RPRootDumpPattern.h"
 #include "RPRootDumpPatternInfo.h"
+#include "RPRootDumpReconstructedProton.h"
+#include "RPRootDumpReconstructedProtonPair.h"
+#include "RPRootDumpTrackInfo.h"
+#include "T1Event.h"
+#include "T2Event.h"
+#include "TriggerData.h"
 
 #include "analysis_tools.h"
 #include "deltaPhi.h"
@@ -579,6 +592,9 @@ void ana_psel_DataJPsi_V3(vector<string> const& fileNames, string const& outputF
 	histosTH2F["proton_right_logXi_vs_t"] = new TH2F("proton_right_logXi_vs_t","proton_right_logXi_vs_t", 100, 0., 5., 100, -5., 0.);
 	histosTH2F["proton_left_logXi_vs_t"] = new TH2F("proton_left_logXi_vs_t","proton_left_logXi_vs_t", 100, 0., 5., 100, -5., 0.);
 
+        //histosTH2F["proton_y_vs_x_rp_124_125"] = new TH2F("proton_y_vs_x_rp_124_125","proton_y_vs_x_rp_124_125",100,-10,10,100,-40,40);
+        //histosTH2F["proton_y_vs_x_rp_124_125_cut"] = new TH2F("proton_y_vs_x_rp_124_125_cut","proton_y_vs_x_rp_124_125_cut",100,-10,10,100,-40,40);
+
 	for(map<string,TH1F*>::const_iterator it = histosTH1F.begin(); it != histosTH1F.end(); ++it)
 		it->second->Sumw2();
 	for(map<string,TH2F*>::const_iterator it = histosTH2F.begin(); it != histosTH2F.end(); ++it)
@@ -603,7 +619,7 @@ void ana_psel_DataJPsi_V3(vector<string> const& fileNames, string const& outputF
 	//vector<MyFSCHit>*  fscHits_coll = NULL;
 	//vector<MyFSCDigi>* fscDigis_coll = NULL;
 	//===================
-	T2Event* t2_event = NULL; 
+	/*T2Event* t2_event = NULL; 
 	RPRootDumpReconstructedProton* rec_proton_left  = NULL;
 	RPRootDumpReconstructedProton* rec_proton_right = NULL;
 	RPRootDumpReconstructedProtonPair* rec_proton_pair  = NULL;
@@ -611,7 +627,21 @@ void ana_psel_DataJPsi_V3(vector<string> const& fileNames, string const& outputF
 	map<unsigned int, RPRootDumpDigiInfo*> rp_digi_info;
 	map<unsigned int, RPRootDumpPatternInfo*> rp_par_patterns_info;
 	map<unsigned int, RPRootDumpPatternInfo*> rp_nonpar_patterns_info;
-	map<unsigned int, std::vector<RPRootDumpTrackInfo>*> rp_multi_track_info;
+	map<unsigned int, std::vector<RPRootDumpTrackInfo>*> rp_multi_track_info;*/
+       //Declaration of tree and its branches variables
+       //TTree* tree = new TTree(treeName.c_str(),"");
+       T1Event* t1_event = NULL;
+       T2Event* t2_event = NULL;
+       RPRootDumpReconstructedProton* rec_proton_left  = NULL;
+       RPRootDumpReconstructedProton* rec_proton_right = NULL;
+       RPRootDumpReconstructedProton* sim_proton_right = NULL;
+       RPRootDumpReconstructedProton* sim_proton_left = NULL;
+       RPRootDumpReconstructedProtonPair* rec_proton_pair  = NULL;
+       map<unsigned int, RPRootDumpTrackInfo*> rp_track_info;
+       map<unsigned int, RPRootDumpDigiInfo*> rp_digi_info;
+       map<unsigned int, RPRootDumpPatternInfo*> rp_par_patterns_info;
+       map<unsigned int, RPRootDumpPatternInfo*> rp_nonpar_patterns_info;
+       map<unsigned int, std::vector<RPRootDumpTrackInfo>*> rp_multi_track_info;
 	//===================
         TString outtxt_right = outputFileName;
 	TString outtxt_left = outputFileName;
@@ -649,28 +679,33 @@ void ana_psel_DataJPsi_V3(vector<string> const& fileNames, string const& outputF
 		tree->SetBranchAddress("cmsParticleFlowUA",&pFlow_coll);
 		//tree->SetBranchAddress("cmsFSCHitsUA",&fscHits_coll);
 		//tree->SetBranchAddress("cmsFSCDigisUA",&fscDigis_coll);
-		tree->SetBranchAddress("branchT2EV.",&t2_event);
-		tree->SetBranchAddress("rec_prot_left.",&rec_proton_left);
-		tree->SetBranchAddress("rec_prot_right.",&rec_proton_right);
-		tree->SetBranchAddress("rec_prot_pair.",&rec_proton_pair);
-		/*//rp_track_info[20] = NULL;
-		  tree->SetBranchAddress("track_rp_20.", &rp_track_info[20]);*/
-		std::vector<unsigned int> rp_list;
-		rp_list.push_back(20); rp_list.push_back(21); rp_list.push_back(24); rp_list.push_back(25);
-		rp_list.push_back(120); rp_list.push_back(121); rp_list.push_back(124); rp_list.push_back(125);
-		char br_name[200];
-		for (unsigned int a = 0; a < 2; ++a) {
-			int s = 2;
-			for (unsigned int r = 0; r < 6; r++) {
-				unsigned int id = 100 * a + 10 * s + r;
-				if( std::find(rp_list.begin(), rp_list.end(), id) == rp_list.end() ) continue;
+                //adding branches to the tree ----------------------------------------------------------------------
+                tree->SetBranchAddress("branchT1EV.",&t1_event);
+                tree->SetBranchAddress("branchT2EV.",&t2_event);
+                tree->SetBranchAddress("rec_prot_left.",&rec_proton_left);
+                tree->SetBranchAddress("rec_prot_right.",&rec_proton_right);
+                tree->SetBranchAddress("sim_prot_left.",&sim_proton_left);
+                tree->SetBranchAddress("sim_prot_right.",&sim_proton_right);
+                tree->SetBranchAddress("rec_prot_pair.",&rec_proton_pair);
+                std::vector<unsigned int> rp_list;
+                rp_list.push_back(20); rp_list.push_back(21); rp_list.push_back(22); rp_list.push_back(23); rp_list.push_back(24); rp_list.push_back(25);
+                rp_list.push_back(120); rp_list.push_back(121); rp_list.push_back(122); rp_list.push_back(123); rp_list.push_back(124); rp_list.push_back(125);
+                char br_name[200];
+                char name[200];
+                for (unsigned int a = 0; a < 2; ++a) {
+                int s = 2;
+                for (unsigned int r = 0; r < 6; r++) {
+                unsigned int id = 100 * a + 10 * s + r;
+                if( std::find(rp_list.begin(), rp_list.end(), id) == rp_list.end() ) continue;
+              
+                sprintf(br_name, "track_rp_%u.", id);
+                std::cout << br_name << std::endl;
+                tree->SetBranchAddress(br_name, &rp_track_info[id]);
+                }
+               } 
 
-				sprintf(br_name, "track_rp_%u.", id);
-				std::cout << br_name << std::endl;
-				tree->SetBranchAddress(br_name, &rp_track_info[id]);
-			}
-		}
-		/*readRPBranches(tree,
+
+         	/*readRPBranches(tree,
 		  rec_proton_left,
 		  rec_proton_right,
 		  rec_proton_pair,
@@ -770,6 +805,38 @@ void ana_psel_DataJPsi_V3(vector<string> const& fileNames, string const& outputF
 			}
 
 			if(!passed_HLTMuon) continue;
+                        //--------------------------------------------------------------------------------------------------
+                        //track cuts
+                        bool rp_track_valid_120 = rp_track_info[120]->valid;bool track_valid_120 = rp_track_valid_120;
+                        bool rp_track_valid_121 = rp_track_info[121]->valid;bool track_valid_121 = rp_track_valid_121;
+                        bool rp_track_valid_122 = rp_track_info[122]->valid;bool track_valid_122 = rp_track_valid_122;
+                        bool rp_track_valid_123 = rp_track_info[123]->valid;bool track_valid_123 = rp_track_valid_123;
+                        bool rp_track_valid_124 = rp_track_info[124]->valid;bool track_valid_124 = rp_track_valid_124; 
+                        bool rp_track_valid_125 = rp_track_info[125]->valid;bool track_valid_125 = rp_track_valid_125;
+                        double rp_x_124 = rp_track_info[124]->x;    
+                        double rp_y_124 = rp_track_info[124]->y;    
+                        double rp_x_125 = rp_track_info[125]->x;
+                        double rp_y_125 = rp_track_info[125]->y;  
+      
+                        histosTH2F["proton_y_vs_x_rp_124_125"]->Fill( rp_x_124, rp_y_124, event_weight );
+                        histosTH2F["proton_y_vs_x_rp_124_125"]->Fill( rp_x_125, rp_y_125, event_weight );
+
+                        bool cut_rp_124 =  rp_x_124>0 && rp_x_124<6 && rp_y_124>8.4 && rp_y_124<27 ; 
+                        bool cut_rp_125 =  rp_x_125>0 && rp_x_125<6 && rp_y_125<-8.4 && rp_y_124>-27 ; 
+                        //  if (!cut_rp_124 && !cut_rp_125) continue;
+
+                        histosTH2F["proton_y_vs_x_rp_124_125_cut"]->Fill( rp_x_124, rp_y_124, event_weight );
+                       histosTH2F["proton_y_vs_x_rp_124_125_cut"]->Fill( rp_x_125, rp_y_125, event_weight );
+
+                       int rp_hits_120 = rp_track_info[120]->entries;
+                       int rp_hits_121 = rp_track_info[121]->entries;
+                       int rp_hits_122 = rp_track_info[122]->entries;
+                       int rp_hits_123 = rp_track_info[123]->entries;
+                       int rp_hits_124 = rp_track_info[124]->entries;
+                       int rp_hits_125 = rp_track_info[125]->entries;
+                      //bool proton_rp_right_accept = ( rp_hits_120 == 1. && rp_hits_124 == 1. ) || ( rp_hits_121 == 1. && rp_hits_125 == 1. ) || ( rp_hits_122 == 1. && rp_hits_123 == 1. );
+                      bool proton_rp_right_accept = ( track_valid_120 && track_valid_124 )  || ( track_valid_121 && track_valid_125 ) || ( track_valid_122 && track_valid_123 ); 
+                      histosTH1F["entries_124"]->Fill( rp_hits_124, event_weight );
 
 
 
