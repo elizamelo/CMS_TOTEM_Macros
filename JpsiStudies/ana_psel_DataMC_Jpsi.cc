@@ -104,6 +104,8 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 	//bool selectNonElastic = true;
 	bool selectRPPlusAccept = false;
 	bool selectRPMinusAccept = true;
+        bool sdplus = false;
+        bool sdminus = true;
 
 	// Declaration of histograms
 	map<string,TH1F*> histosTH1F;
@@ -1063,7 +1065,7 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 
 			std::map<int,std::vector<double> > proton_plus_pars;
 			std::map<int,std::vector<double> > proton_minus_pars;
-
+                        if(sdplus){
 			if(proton_pz_plus > 0.){
 				xi_proton_plus =  ( 1 - (proton_pz_plus/proton_pi) );
 				//t_proton_plus = -2*( (proton_pi*proton_energy_plus) - (proton_pi*proton_pz_plus) );
@@ -1143,6 +1145,8 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 				histosTH2F["proton_plus_xi_vs_t"]->Fill( fabs(t_proton_plus) , xi_proton_plus , event_weight );
 			}
 
+                   }//sdplus
+                        if(sdminus){
 			if(proton_pz_minus < 0.){ 
 				xi_proton_minus = (proton_pz_minus < 0.) ? ( 1 + (proton_pz_minus/proton_pi) ) : -1.;
 				//t_proton_minus = -2*( (proton_pi*proton_energy_minus) + (proton_pi*proton_pz_minus) );
@@ -1220,18 +1224,21 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 
 				histosTH2F["proton_minus_xi_vs_t"]->Fill( fabs(t_proton_minus) , xi_proton_minus , event_weight );
 			}
-
+       }//sdminus
 			// Check RP combinations  
-			proton_plus_rp_accept = (proton_pz_plus > 0.) && 
+		       if(sdplus){
+                          proton_plus_rp_accept = (proton_pz_plus > 0.) && 
 				( ( proton_plus_rp_accept_020 && proton_plus_rp_accept_024 )|| 
 				  ( proton_plus_rp_accept_021 && proton_plus_rp_accept_025 )||
-				  ( proton_plus_rp_accept_022 && proton_plus_rp_accept_023 ));
-			proton_minus_rp_accept = (proton_pz_minus < 0.) && 
+				  ( proton_plus_rp_accept_022 && proton_plus_rp_accept_023 ));}//sdplus
+			if(sdminus){
+                           proton_minus_rp_accept = (proton_pz_minus < 0.) && 
 				( ( proton_minus_rp_accept_120 && proton_minus_rp_accept_124 )||
 				  ( proton_minus_rp_accept_121 && proton_minus_rp_accept_125 )||
-				  ( proton_minus_rp_accept_122 && proton_minus_rp_accept_123 ) );
+				  ( proton_minus_rp_accept_122 && proton_minus_rp_accept_123 ) );}//sdminus
 
-			if( proton_plus_rp_accept ){
+			if(sdplus){
+                            if( proton_plus_rp_accept ){
 				histosTH1F["xi_proton_plus_accepted"]->Fill( xi_proton_plus , event_weight );
 				histosTH1F["t_proton_plus_accepted"]->Fill( fabs(t_proton_plus) , event_weight ); 
 				histosTH2F["proton_plus_xi_vs_t_accepted"]->Fill( fabs(t_proton_plus) , xi_proton_plus , event_weight );
@@ -1242,6 +1249,8 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 				}
 			}
 
+          }//sdplus
+                      if(sdminus){
 			if( proton_minus_rp_accept ){
 				histosTH1F["xi_proton_minus_accepted"]->Fill( xi_proton_minus , event_weight );
 				histosTH1F["t_proton_minus_accepted"]->Fill( fabs(t_proton_minus) , event_weight ); 
@@ -1253,9 +1262,10 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 						histosTH1F["t_proton_xi_range_minus_accepted"]->Fill( fabs(t_proton_minus) , event_weight );}
 				}
 			}
-
+          }//sdminus
 			// RP stations
-			if(proton_plus_rp_accept_020){
+                       if(sdplus){
+                       if(proton_plus_rp_accept_020){
 				histosTH1F["xi_proton_plus_accepted_020"]->Fill( xi_proton_plus , event_weight );
 				histosTH1F["t_proton_plus_accepted_020"]->Fill( fabs(t_proton_plus) , event_weight ); 
 				histosTH1F["posx_proton_plus_accepted_020"]->Fill( proton_plus_pars[20][0] , event_weight );
@@ -1292,7 +1302,8 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 				histosTH1F["xi_proton_plus_accepted_120"]->Fill( xi_proton_plus , event_weight );
 				histosTH1F["t_proton_plus_accepted_120"]->Fill( fabs(t_proton_plus) , event_weight ); 
 			}
-
+                      }//sdplus
+                        if(sdminus){
 			if(proton_minus_rp_accept_120){
 				histosTH1F["xi_proton_minus_accepted_120"]->Fill( xi_proton_minus , event_weight );
 				histosTH1F["t_proton_minus_accepted_120"]->Fill( fabs(t_proton_minus) , event_weight ); 
@@ -1320,6 +1331,7 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 				histosTH1F["xi_proton_minus_accepted_020"]->Fill( xi_proton_minus , event_weight );
 				histosTH1F["t_proton_minus_accepted_020"]->Fill( fabs(t_proton_minus) , event_weight ); 
 			}
+                     }//sdminus
 		}
 		//if(verbose)cout<<"fim genpart"<<endl;
 		//-------------------------------------------------------------------------------------------------
@@ -2083,6 +2095,7 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 						// Generator-level proton distributions
 						//-------------------
 						if(isMC){
+                                                  if(sdplus){
 							if( proton_plus_rp_accept ){
 								histosTH1F["xi_proton_plus_selected"]->Fill( xi_proton_plus , event_weight );
 								histosTH1F["t_proton_plus_selected"]->Fill( fabs(t_proton_plus) , event_weight ); 
@@ -2165,6 +2178,8 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 										histosTH1F["t_proton_xi_range_plus_selected"]->Fill( fabs(t_proton_plus) , event_weight );}
 								}
 							}
+                                                    }//sdplus
+                                                     if(sdminus){
 							if( proton_minus_rp_accept ){
 								histosTH1F["xi_proton_minus_selected"]->Fill( xi_proton_minus , event_weight );
 								histosTH1F["t_proton_minus_selected"]->Fill( fabs(t_proton_minus) , event_weight ); 
@@ -2250,6 +2265,7 @@ void ana_psel_DataMC_Jpsi(vector<string> const& fileNames, string const& outputF
 									if(proton_minus_xi_range){
 										histosTH1F["t_proton_xi_range_minus_selected"]->Fill( fabs(t_proton_minus) , event_weight );}
 								}
+                                                            }//sdminus
 							}
 						}
 
