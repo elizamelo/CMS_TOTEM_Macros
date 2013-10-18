@@ -1844,7 +1844,8 @@ void ana_psel_DataMC_Jpsi_v2(vector<string> const& fileNames, string const& outp
 			double xi_proton_right = rec_proton_right->xi;
 			double t_proton_right = rec_proton_right->t;
 			//bool good_proton_right = proton_right_valid && (chi2_proton_right/chindf_proton_right > 1);
-			bool good_proton_right = proton_right_valid && (-0.23< xi_proton_right < 0.04);
+			//bool good_proton_right = proton_right_valid && (-0.23< xi_proton_right < 0.04);
+                        bool good_proton_right = proton_right_valid;
 			bool select_proton_minus = false;
 			if( good_proton_right ){
 				if(verbose)cout<<"1850-good proton rigth"<<endl;
@@ -1875,7 +1876,8 @@ void ana_psel_DataMC_Jpsi_v2(vector<string> const& fileNames, string const& outp
 			double xi_proton_left = rec_proton_left->xi;
 			double t_proton_left = rec_proton_left->t;
 			//bool good_proton_left = proton_left_valid && (chi2_proton_left/chindf_proton_left > 1);
-			bool good_proton_left = proton_left_valid && (-0.23< xi_proton_left < 0.04);
+			//bool good_proton_left = proton_left_valid && (-0.23< xi_proton_left < 0.04);
+                        bool good_proton_left = proton_left_valid;
 			bool select_proton_plus = false;
 			if( good_proton_left ){
 				if(verbose)cout<<"1881-good proton left"<<endl;
