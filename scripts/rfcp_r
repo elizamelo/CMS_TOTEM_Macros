@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# script that ease recursive copying to/from CASTOR
+
+# lack of arguments
+if [ $# -lt 1 ]; then
+		echo 'Usage: ./rfcp_r [from_dir] <to_dir>'
+		exit
+fi
+
+# more than two arguments
+if [ $# -ge 2 ]; then
+		first=$1
+		second=$2
+else
+		if [ "$FIRST_ARGUMENT" == "" ]; then
+				echo 'Usage: ./rfcp_r <from_dir> <to_dir>'
+				exit
+		fi
+		first=$FIRST_ARGUMENT
+		second=$1
+fi
+
+# first argument is not on CASTOR
+if [ "${first:0:7}" != "/castor" ]; then
+	# from local to local
+	if [ "${second:0:7}" != "/castor" ]; then
+		cp -r $first $second
+		exit
+	# from local to CASTOR
+	else
+		cd $first
+		find . -type d
+		find . -type d -print0 | xargs -0 -I {} rfmkdir -p $second/{}
+		find . -type f -print0 | xargs -0 -I {} echo {} $second/{}
+		find . -type f -print0 | xargs -0 -I {} xrdcp {} -OSsvcClass=default root://castorpublic/$second/{}
+		cd -
+		exit
+	fi
+fi
+
+p=`pwd`
+cd `dirname $0`
+script_path=`pwd`
+cd $p
+cd $second
+script=`basename $0`
+script="$script_path/$script"
+
+ifFile=`nsls -l $first`
+if [ $? -ne 0 ]; then
+		exit
+fi
+
+ifFile=`echo $ifFile|grep $first`
+if [ "$ifFile" != "" ]; then
+		## it is a regular file
+		echo "xrdcp root://castorpublic/$first -OSsvcClass=default $second"
+		xrdcp root://castorpublic/$first  -OSsvcClass=default $second
+else
+		current_dir=`basename $first`
+		mkdir -p $current_dir
+		cd $current_dir
+		for i in `nsls $first`; do
+				echo "$script $first/$i ./"
+				$script "$first/$i" ./
+		done
+		cd ..
+fi
+
+cd $p
